@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxGui.h"
+#include "ofxOpenCv.h"
 
 class ofApp : public ofBaseApp{
 
@@ -22,8 +23,17 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
+    
+    
     ofxPanel panel1;
     
+    
     ofxButton knap;
-		
+    ofxButton erode;
+    ofxButton reset;
+    ofImage image1;
+    ofxCvColorImage image2;
+    ofxCvGrayscaleImage	grayImg;
+    ofxCvContourFinder contourFinder;
+    ofxCvBlob blob;
 };
