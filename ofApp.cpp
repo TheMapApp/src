@@ -2,7 +2,8 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    //jonas har lavet en update her!
+    panel1.setup();
+    panel1.add(knap.setup("START"));
 
 }
 
@@ -13,6 +14,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    panel1.draw();
 
 }
 
