@@ -25,13 +25,14 @@ void ofApp::update(){
     }
     if(reset){
         image2.setFromPixels(image1.getPixels());
-         grayImg = image2;
+        grayImg = image2;
         grayImg.threshold(200);
     }
     
     if(erode){
         grayImg.erode_3x3();
     }
+  cf.findContours(grayImg, 20, (320*240)/3, 10, true);
    
  
 }
@@ -40,6 +41,7 @@ void ofApp::update(){
 void ofApp::draw(){
 
 grayImg.draw(0,0,600,600);
+    cf.draw(0,0,600,600);
     
    panel1.draw();
 
@@ -47,6 +49,8 @@ grayImg.draw(0,0,600,600);
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    
+ 
 
 }
 
@@ -67,7 +71,8 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+    
+    
 }
 
 //--------------------------------------------------------------
