@@ -12,7 +12,7 @@ void ofApp::setup(){
 
     image2.setFromPixels(image1.getPixels());
     grayImg = image2;
-    grayImg.threshold(100);
+    grayImg.threshold(150);
 
 	play.addListener(this, &ofApp::playPressed);
 	stop.addListener(this, &ofApp::stopPressed);
@@ -39,17 +39,15 @@ void ofApp::update(){
     if(reset){
         image2.setFromPixels(image1.getPixels());
         grayImg = image2;
-<<<<<<< HEAD
-        grayImg.threshold(100);
-=======
-        grayImg.threshold(200);
->>>>>>> origin/master
+        grayImg.threshold(150);
+
+
     }
     
     if(erode){
         grayImg.erode_3x3();
     }
-  cf.findContours(grayImg, 20, (320*240)/3, 10, true);
+  cf.findContours(grayImg, 20, (1020*1020)/3, 20, true);
    
  
 }
@@ -57,17 +55,24 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 
-<<<<<<< HEAD
-  grayImg.draw(0,0,600,600);
+ 
 
   panel1.draw();
 
   gui.draw();
-  video.draw(200, 200, 300, 300);
+  video.draw(cf.findContours.nBlobs,cf.findContours.nBlobs, cf.getWidth, cf.getHeight
+	  );
   video.setVolume(volume);
   video.setSpeed(speed);
 
-  //contourFinder.blobs[1].draw(700, 700);
+ // cf.blobs[0].draw(700, 700);
+ // cf.blobs[1].draw(750, 700);
+ // cf.blobs[2].draw(770, 700);
+
+  grayImg.draw(0, 0, 600, 600);
+  cf.draw(0, 0, 600, 600);
+
+  panel1.draw();
 
 
   
@@ -77,12 +82,8 @@ void ofApp::draw(){
 void ofApp::playPressed() {
 	video.play();
 }
-=======
-grayImg.draw(0,0,600,600);
-    cf.draw(0,0,600,600);
-    
-   panel1.draw();
->>>>>>> origin/master
+
+
 
 void ofApp::stopPressed() {
 	video.stop();
