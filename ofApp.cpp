@@ -39,12 +39,17 @@ void ofApp::update(){
     if(reset){
         image2.setFromPixels(image1.getPixels());
         grayImg = image2;
+<<<<<<< HEAD
         grayImg.threshold(100);
+=======
+        grayImg.threshold(200);
+>>>>>>> origin/master
     }
     
     if(erode){
         grayImg.erode_3x3();
     }
+  cf.findContours(grayImg, 20, (320*240)/3, 10, true);
    
  
 }
@@ -52,6 +57,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 
+<<<<<<< HEAD
   grayImg.draw(0,0,600,600);
 
   panel1.draw();
@@ -71,6 +77,12 @@ void ofApp::draw(){
 void ofApp::playPressed() {
 	video.play();
 }
+=======
+grayImg.draw(0,0,600,600);
+    cf.draw(0,0,600,600);
+    
+   panel1.draw();
+>>>>>>> origin/master
 
 void ofApp::stopPressed() {
 	video.stop();
@@ -78,6 +90,8 @@ void ofApp::stopPressed() {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    
+ 
 
 }
 
@@ -98,7 +112,8 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+    
+    
 }
 
 //--------------------------------------------------------------
