@@ -22,18 +22,27 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-<<<<<<< HEAD
+		
+		void playPressed();
+		void stopPressed();
+
+		ofxButton play;
+		ofxButton stop;
+		ofxFloatSlider volume;
+		ofxFloatSlider speed;
+
+		ofVideoPlayer video;
+
+
+
 
 		ofImage image;
 
 
-
-		
-=======
-    
-    
+   
     
     ofxPanel panel1;
+	ofxPanel gui;
     
     
     ofxButton knap;
@@ -44,5 +53,5 @@ class ofApp : public ofBaseApp{
     ofxCvGrayscaleImage	grayImg;
     ofxCvContourFinder contourFinder;
     ofxCvBlob blob;
->>>>>>> origin/master
+
 };
