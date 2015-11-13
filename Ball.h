@@ -2,7 +2,11 @@
 class Ball
 {
 public:
-	Ball();
+	Ball(int x, int y);
 	~Ball();
+    
+    
+    int _x;
+    int _y;
 };
 

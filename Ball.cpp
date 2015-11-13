@@ -2,8 +2,12 @@
 
 
 
-Ball::Ball()
+Ball::Ball(int x, int y)
 {
+    _x =x;
+    _y =y;
+    
+    
 }
 
 
