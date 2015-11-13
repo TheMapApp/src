@@ -3,7 +3,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    image1.load("RGB.jpg");
+    image1.load("tester.jpg");
 	image1.resize(600, 600);
 
 
@@ -17,6 +17,7 @@ void ofApp::setup(){
     grayImg = image2;
 	grayImg.resize(600, 600);
     grayImg.threshold(150);
+    myball =new Ball*[5];
 
 	//play.addListener(this, &ofApp::playPressed);
 	//stop.addListener(this, &ofApp::stopPressed);
@@ -29,6 +30,7 @@ void ofApp::setup(){
 
 	*/
 	//video.loadMovie("Shake.avi");
+    myball[1]= new Ball(500,300,10,grayImg);
 
 }
 
@@ -51,11 +53,15 @@ void ofApp::update(){
     }
   cf.findContours(grayImg, 1000, 100000, 50, false);
    
+    myball[1]->Bounce();
+    myball[1]->Move();
+    
  
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    ofSetColor(255, 255, 255);
 	image1.draw(0, 0, 600, 600);
   grayImg.draw(600,0,600,600);
 
@@ -68,7 +74,7 @@ void ofApp::draw(){
   */
  cf.draw(0,0,600, 600);
 
-
+    myball[1]->Draw();
   
 
 }

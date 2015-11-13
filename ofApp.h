@@ -1,7 +1,12 @@
 
+#ifndef of_App
+#define of_App
+
 #include "ofMain.h"
 #include "ofxGui.h"
 #include "ofxOpenCv.h"
+#include "Ball.h"
+
 
 class ofApp : public ofBaseApp{
 
@@ -31,6 +36,8 @@ class ofApp : public ofBaseApp{
 		ofxFloatSlider speed;
 
 		ofVideoPlayer video;
+        Ball** myball;
+    
 
 
 
@@ -54,3 +61,4 @@ class ofApp : public ofBaseApp{
     ofxCvBlob blob;
     ofxCvContourFinder cf;
 };
+#endif
