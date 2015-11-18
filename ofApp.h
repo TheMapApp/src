@@ -57,7 +57,16 @@ class ofApp : public ofBaseApp{
     ofxCvGrayscaleImage	grayImg;
     ofxCvContourFinder contourFinder;
     ofxCvBlob blob;
+<<<<<<< HEAD
+
     ofxCvContourFinder cf;
+
+=======
+    ofxCvContourFinder cf;
+<<<<<<< HEAD
     
+=======
+>>>>>>> origin/master
+>>>>>>> origin/master
 };
 #endif
