@@ -36,21 +36,19 @@ class ofApp : public ofBaseApp{
 		ofxFloatSlider speed;
 
 		ofVideoPlayer video;
-        Ball** myball;
+       vector<Ball> myBall;
+    int tmpthresholdslider;
+    int tmpthresholdslider2;
     
-
-
-
-
-		ofImage image;
-
-
    
     
     ofxPanel panel1;
 	ofxPanel gui;
     
     
+    ofxToggle tog;
+    ofxIntSlider thresholdslider;
+    ofxIntSlider thresholdslider2;
     ofxButton knap;
     ofxButton erode;
     ofxButton reset;
@@ -60,5 +58,6 @@ class ofApp : public ofBaseApp{
     ofxCvContourFinder contourFinder;
     ofxCvBlob blob;
     ofxCvContourFinder cf;
+    
 };
 #endif

@@ -10,12 +10,16 @@
 class Ball
 {
 public:
-    Ball(int x, int y, int size, ofxCvGrayscaleImage grayImg);
+    Ball();
     ~Ball();
+    void Setup(int x, int y, int size, ofxCvGrayscaleImage grayImg);
     void Move();
     bool Bounce();
+    bool Bouncer();
     void Draw();
+    void setImage(ofxCvGrayscaleImage grayImg);
     
+    ofColor _color;
     int _x;
     int _y;
     int px;
@@ -25,10 +29,11 @@ public:
     int px3;
     int py3;
     int _size;
-    int speedX = 10;
-    int speedY = 10;
+    int speedX = 3;
+    int speedY = 3;
     ofxCvGrayscaleImage _grayImg;
     ofPixels pix;
+     
 };
 
 

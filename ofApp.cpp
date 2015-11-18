@@ -3,21 +3,30 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    image1.load("tester.jpg");
+    image1.load("scene3.jpg");
 	image1.resize(600, 600);
 
 
     panel1.setup();
+    panel1.add(thresholdslider.setup("threshold",150,0,255));
+     panel1.add(thresholdslider2.setup("threshold2",150,0,255));
     panel1.add(knap.setup("DIALATE"));
     panel1.add(reset.setup("RESET"));
     panel1.add(erode.setup("ERODE"));
+    panel1.add(tog.setup("ADD",true));
+   
 
     image2.setFromPixels(image1.getPixels());
 	image2.resize(600, 600);
     grayImg = image2;
 	grayImg.resize(600, 600);
-    grayImg.threshold(150);
-    myball =new Ball*[5];
+    grayImg.contrastStretch();
+    
+    grayImg.threshold(thresholdslider);
+  
+    
+   
+   
 
 	//play.addListener(this, &ofApp::playPressed);
 	//stop.addListener(this, &ofApp::stopPressed);
@@ -30,22 +39,33 @@ void ofApp::setup(){
 
 	*/
 	//video.loadMovie("Shake.avi");
-    myball[1]= new Ball(500,300,10,grayImg);
+   
+    
+    
+   
+  
+    
+    
+  
 
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     
+    
 	//video.update();
+   
 
+   
     if(knap){
         grayImg.dilate_3x3();
     }
+    
     if(reset){
         image2.setFromPixels(image1.getPixels());
         grayImg = image2;
-        grayImg.threshold(150);
+       grayImg.threshold(150);
     }
     
     if(erode){
@@ -53,16 +73,37 @@ void ofApp::update(){
     }
   cf.findContours(grayImg, 1000, 100000, 50, false);
    
-    myball[1]->Bounce();
-    myball[1]->Move();
+   
+   
+    for (int i = 0; i<myBall.size(); i++) {
+        myBall[i].setImage(grayImg);
+        myBall[i].Move();
+    }
     
- 
+    if(thresholdslider!=tmpthresholdslider){
+    image2.setFromPixels(image1.getPixels());
+    grayImg = image2;
+    grayImg.threshold(thresholdslider);
+}
+    tmpthresholdslider=thresholdslider;
+    
+    
+    if(thresholdslider2!=tmpthresholdslider2){
+        image2.setFromPixels(image1.getPixels());
+        grayImg = image2;
+        grayImg.threshold(thresholdslider);
+    }
+    tmpthresholdslider2=thresholdslider2;
+     
+  //cvCanny(grayImg.getCvImage(), grayImg.getCvImage(), thresholdslider2, thresholdslider,3);
+
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofSetColor(255, 255, 255);
-	image1.draw(0, 0, 600, 600);
+	image2.draw(0, 0, 600, 600);
   grayImg.draw(600,0,600,600);
 
   panel1.draw();
@@ -72,9 +113,15 @@ void ofApp::draw(){
   video.setVolume(volume);
   video.setSpeed(speed);
   */
- cf.draw(0,0,600, 600);
+ //cf.draw(0,0,600, 600);
 
-    myball[1]->Draw();
+   
+    for (int i = 0; i<myBall.size(); i++) {
+        myBall[i].Draw();
+    }
+    
+
+    
   
 
 }
@@ -116,9 +163,16 @@ void ofApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
     
+    if(tog == true){
+    Ball tempBall;
+    tempBall.Setup(x,y,30,grayImg);
+    myBall.push_back(tempBall);
     
+    }else{
+        myBall.erase(myBall.begin());
+        
+    }
 }
-
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
 
