@@ -29,6 +29,12 @@ class ofApp : public ofBaseApp{
 		
 		void playPressed();
 		void stopPressed();
+    
+    
+    ofSoundPlayer beat;
+    float * fftsmooth;
+    int bands;
+    float sizeh;
 
 		ofxButton play;
 		ofxButton stop;
@@ -43,11 +49,23 @@ class ofApp : public ofBaseApp{
    
     
     ofxPanel panel1;
+    ofxPanel panel2;
 	ofxPanel gui;
-    
+    ofTexture tex;
+    ofTexture tex2;
+    ofPixels pix;
     
     ofxToggle tog;
+     ofxToggle tog2;
+    ofxToggle tog1;
     ofxIntSlider thresholdslider;
+    ofxIntSlider pointslider;
+    ofxIntSlider rslider;
+    ofxIntSlider gslider;
+    ofxIntSlider bslider;
+      ofxIntSlider sizeslider;
+    ofxIntSlider speedslider;
+
     ofxIntSlider thresholdslider2;
     ofxButton knap;
     ofxButton erode;
@@ -57,16 +75,10 @@ class ofApp : public ofBaseApp{
     ofxCvGrayscaleImage	grayImg;
     ofxCvContourFinder contourFinder;
     ofxCvBlob blob;
-<<<<<<< HEAD
+
 
     ofxCvContourFinder cf;
 
-=======
-    ofxCvContourFinder cf;
-<<<<<<< HEAD
-    
-=======
->>>>>>> origin/master
->>>>>>> origin/master
+
 };
 #endif

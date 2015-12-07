@@ -3,61 +3,49 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    image1.load("scene3.jpg");
-	image1.resize(600, 600);
+    image1.load("scene.jpg");
+	image1.resize(600,600);
+    ofBackground(0, 0, 0);
+    ofSetFrameRate(50);
+    
+    beat.load("carolinian.mp3");
+    
+    
+    fftsmooth = new float [8192];
+    for(int i =0; i< 8192; i++){
+    fftsmooth[i] =0;
+    }
+    bands = 16;
+    beat.setLoop(true);
+    beat.setVolume(0.2);
+    beat.play();
 
 
     panel1.setup();
-    panel1.add(thresholdslider.setup("threshold",150,0,255));
-     panel1.add(thresholdslider2.setup("threshold2",150,0,255));
+     panel2.setup();
+    panel2.ofxBaseGui::setPosition(300, 300);
+    panel1.add(thresholdslider.setup("threshold",150,0,300));
+     panel1.add(thresholdslider2.setup("threshold2",150,0,300));
     panel1.add(knap.setup("DIALATE"));
     panel1.add(reset.setup("RESET"));
     panel1.add(erode.setup("ERODE"));
-    panel1.add(tog.setup("ADD",true));
-   
+      panel1.add(tog1.setup("DRaw",true));
+    
+     panel2.add(tog2.setup("ACTIVE",false));
+    panel2.add(tog.setup("ADD",true));
+  
+    panel2.add(pointslider.setup("points",2,2,8));
+    panel2.add(rslider.setup("RED",100,0,255));
+    panel2.add(gslider.setup("GREEN",100,0,255));
+    panel2.add(bslider.setup("BLUE",100,0,255));
+    panel2.add(sizeslider.setup("SIZE",15,0,40));
+       panel2.add(speedslider.setup("SPEED",3,0,6));
+
+    
 
     image2.setFromPixels(image1.getPixels());
-	image2.resize(600, 600);
     grayImg = image2;
-<<<<<<< HEAD
-    grayImg.threshold(150);
 
-	play.addListener(this, &ofApp::playPressed);
-	stop.addListener(this, &ofApp::stopPressed);
-=======
-	grayImg.resize(600, 600);
-<<<<<<< HEAD
-    grayImg.contrastStretch();
-    
-    grayImg.threshold(thresholdslider);
-  
-    
-   
-   
-=======
-    grayImg.threshold(150);
-    myball =new Ball*[5];
->>>>>>> origin/master
->>>>>>> origin/master
-
-	//play.addListener(this, &ofApp::playPressed);
-	//stop.addListener(this, &ofApp::stopPressed);
-/*
-	gui.setup();
-	gui.add(play.setup("play"));
-	gui.add(stop.setup("stop"));
-	gui.add(volume.setup("volume", 1.0, 0.0, 1.0));
-	gui.add(speed.setup("speed", 1.0, 0.0, 1.0));
-
-	*/
-	//video.loadMovie("Shake.avi");
-   
-    
-    
-   
-  
-    
-    
   
 
 }
@@ -65,50 +53,45 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    
-	//video.update();
+    ofSoundUpdate();
+    float * value = ofSoundGetSpectrum(bands);
+    for(int i =0;i<bands;i++){
+        fftsmooth[i] *=0.95f;
+        if(fftsmooth[i] < value[i]){
+            fftsmooth[i] = value[i];
+        }
+
+    }
    
 
    
     if(knap){
-        grayImg.dilate_3x3();
+        grayImg.dilate();
     }
     
     if(reset){
         image2.setFromPixels(image1.getPixels());
         grayImg = image2;
-<<<<<<< HEAD
-       grayImg.threshold(150);
-=======
-        grayImg.threshold(150);
-<<<<<<< HEAD
+              cvCanny(grayImg.getCvImage(), grayImg.getCvImage(), 150, 150,3);
 
-
-=======
->>>>>>> origin/master
->>>>>>> origin/master
     }
     
     if(erode){
         grayImg.erode_3x3();
     }
-<<<<<<< HEAD
-  cf.findContours(grayImg, 20, (1020*1020)/3, 20, true);
-=======
-  cf.findContours(grayImg, 1000, 100000, 50, false);
->>>>>>> origin/master
-   
-   
+
+
    
     for (int i = 0; i<myBall.size(); i++) {
-        myBall[i].setImage(grayImg);
         myBall[i].Move();
+        
+       
     }
     
     if(thresholdslider!=tmpthresholdslider){
     image2.setFromPixels(image1.getPixels());
     grayImg = image2;
-    grayImg.threshold(thresholdslider);
+        cvCanny(grayImg.getCvImage(), grayImg.getCvImage(), thresholdslider2, thresholdslider,3);
 }
     tmpthresholdslider=thresholdslider;
     
@@ -116,81 +99,53 @@ void ofApp::update(){
     if(thresholdslider2!=tmpthresholdslider2){
         image2.setFromPixels(image1.getPixels());
         grayImg = image2;
-        grayImg.threshold(thresholdslider);
+        cvCanny(grayImg.getCvImage(), grayImg.getCvImage(), thresholdslider2, thresholdslider,3);
     }
     tmpthresholdslider2=thresholdslider2;
-     
-  //cvCanny(grayImg.getCvImage(), grayImg.getCvImage(), thresholdslider2, thresholdslider,3);
+    
+    
+    
 
+    
     
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-<<<<<<< HEAD
-
- 
-
-  panel1.draw();
-
-  gui.draw();
-  video.draw(cf.findContours.nBlobs,cf.findContours.nBlobs, cf.getWidth, cf.getHeight
-	  );
-=======
+    
+  
     ofSetColor(255, 255, 255);
-	image2.draw(0, 0, 600, 600);
-  grayImg.draw(600,0,600,600);
+	//image2.draw(0, 0, 600, 600);
+    
+    if(tog1){
+  grayImg.draw(0,0);
+    }
 
   panel1.draw();
+    panel2.draw();
 
-  //gui.draw();
-  /*video.draw(200, 200, 300, 300);
->>>>>>> origin/master
-  video.setVolume(volume);
-  video.setSpeed(speed);
-  */
- //cf.draw(0,0,600, 600);
-
-<<<<<<< HEAD
    
     for (int i = 0; i<myBall.size(); i++) {
-        myBall[i].Draw();
+        for(int j=0; j< bands ; j++){
+        myBall[i].Draw((fftsmooth[j]*20));
+        }
     }
-    
 
-    
-=======
-<<<<<<< HEAD
- // cf.blobs[0].draw(700, 700);
- // cf.blobs[1].draw(750, 700);
- // cf.blobs[2].draw(770, 700);
-
-  grayImg.draw(0, 0, 600, 600);
-  cf.draw(0, 0, 600, 600);
-
-  panel1.draw();
-
-
-=======
-    myball[1]->Draw();
->>>>>>> origin/master
->>>>>>> origin/master
-  
 
 }
 
 void ofApp::playPressed() {
 	//video.play();
 }
-<<<<<<< HEAD
 
 
-=======
+
+
 /*grayImg.draw(0,0,600,600);
     cf.draw(0,0,600,600);
     
    panel1.draw();*/
->>>>>>> origin/master
+
 
 void ofApp::stopPressed() {
 	//video.stop();
@@ -221,14 +176,18 @@ void ofApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
     
+    if(tog2==true){
+    
     if(tog == true){
     Ball tempBall;
-    tempBall.Setup(x,y,30,grayImg);
+        tempBall.Setup(x,y,sizeslider,pointslider,grayImg,rslider,gslider,bslider,speedslider);
+        tempBall.setImage(grayImg);
     myBall.push_back(tempBall);
     
     }else{
         myBall.erase(myBall.begin());
         
+    }
     }
 }
 //--------------------------------------------------------------

@@ -11,7 +11,8 @@ Ball::Ball()
     
 }
 
-void Ball::Setup(int x, int y, int size, ofxCvGrayscaleImage grayImg) {
+
+void Ball::Setup(int x, int y, int size,int point, ofxCvGrayscaleImage grayImg, int r, int g ,int b, int speed) {
   
     
     
@@ -21,7 +22,11 @@ void Ball::Setup(int x, int y, int size, ofxCvGrayscaleImage grayImg) {
     py=y;
     _size = size;
     _grayImg = grayImg;
-    _color = ofColor(ofRandom(255), ofRandom(255), ofRandom(255));
+    _color = ofColor(r, g, b);
+    _point = point;
+    _speed = speed;
+    speedX = _speed;
+    speedY = _speed;
 
     
     
@@ -90,10 +95,71 @@ bool Ball::Bouncer() {
 }
 
 
-void Ball::Draw(){
+void Ball::Draw(float sizem){
+    int size = sizem+_size;
     
     ofSetColor(_color);
-    ofDrawCircle(_x, _y, _size);
+    
+    if(_point == 2){
+    ofDrawCircle(_x, _y, size);
+    } else if(_point == 3){
+        ofDrawTriangle(_x+size, _y+size, _x-size, _y+size, _x, _y-size);
+        
+    }else if(_point==4){
+        ofDrawRectangle(_x-(size/2), _y-(size/2), size, size);
+    }else if(_point==5){
+    
+        ofSetPolyMode(OF_POLY_WINDING_NONZERO);
+        ofBeginShape();
+        
+        ofVertex((_x + size * cos(1 * 2 * PI / 5)), (_y + size * sin(1 * 2 * PI / 5)));
+        ofVertex((_x + size * cos(2 * 2 * PI / 5)), (_y + size * sin(2 * 2 * PI / 5)));
+        ofVertex((_x + size * cos(3 * 2 * PI / 5)), (_y + size * sin(3 * 2 * PI / 5)));
+        ofVertex((_x + size * cos(4 * 2 * PI / 5)), (_y + size * sin(4 * 2 * PI / 5)));
+        ofVertex((_x + size * cos(5 * 2 * PI / 5)), (_y + size * sin(5 * 2 * PI / 5)));
+      
+        ofEndShape();
+        
+    }else if(_point==6){
+        
+        ofSetPolyMode(OF_POLY_WINDING_NONZERO);
+        ofBeginShape();
+        ofVertex((_x + size * cos(1 * 2 * PI / 6)), (_y + size * sin(1 * 2 * PI / 6)));
+        ofVertex((_x + size * cos(2 * 2 * PI / 6)), (_y + size * sin(2 * 2 * PI / 6)));
+        ofVertex((_x + size * cos(3 * 2 * PI / 6)), (_y + size * sin(3 * 2 * PI / 6)));
+        ofVertex((_x + size * cos(4 * 2 * PI / 6)), (_y + size * sin(4 * 2 * PI / 6)));
+        ofVertex((_x + size * cos(5 * 2 * PI / 6)), (_y + size * sin(5 * 2 * PI / 6)));
+        ofVertex((_x + size * cos(6 * 2 * PI / 6)), (_y + size * sin(6 * 2 * PI / 6)));
+        ofEndShape();
+        
+    }else if(_point==7){
+        
+        ofSetPolyMode(OF_POLY_WINDING_NONZERO);
+        ofBeginShape();
+        ofVertex((_x + size * cos(1 * 2 * PI / 7)), (_y + size * sin(1 * 2 * PI / 7)));
+        ofVertex((_x + size * cos(2 * 2 * PI / 7)), (_y + size * sin(2 * 2 * PI / 7)));
+        ofVertex((_x + size * cos(3 * 2 * PI / 7)), (_y + size * sin(3 * 2 * PI / 7)));
+        ofVertex((_x + size * cos(4 * 2 * PI / 7)), (_y + size * sin(4 * 2 * PI / 7)));
+        ofVertex((_x + size * cos(5 * 2 * PI / 7)), (_y + size * sin(5 * 2 * PI / 7)));
+        ofVertex((_x + size * cos(6 * 2 * PI / 7)), (_y + size * sin(6 * 2 * PI / 7)));
+         ofVertex((_x + size * cos(7 * 2 * PI / 7)), (_y + size * sin(7 * 2 * PI / 7)));
+        ofEndShape();
+        
+    }else if(_point==8){
+        
+        ofSetPolyMode(OF_POLY_WINDING_NONZERO);
+        ofBeginShape();
+        ofVertex((_x + size * cos(1 * 2 * PI / 8)), (_y + size * sin(1 * 2 * PI / 8)));
+        ofVertex((_x + size * cos(2 * 2 * PI / 8)), (_y + size * sin(2 * 2 * PI / 8)));
+        ofVertex((_x + size * cos(3 * 2 * PI / 8)), (_y + size * sin(3 * 2 * PI / 8)));
+        ofVertex((_x + size * cos(4 * 2 * PI / 8)), (_y + size * sin(4 * 2 * PI / 8)));
+        ofVertex((_x + size * cos(5 * 2 * PI / 8)), (_y + size * sin(5 * 2 * PI / 8)));
+        ofVertex((_x + size * cos(6 * 2 * PI / 8)), (_y + size * sin(6 * 2 * PI / 8)));
+        ofVertex((_x + size * cos(7 * 2 * PI / 8)), (_y + size * sin(7 * 2 * PI / 8)));
+        ofVertex((_x + size * cos(8 * 2 * PI / 8)), (_y + size * sin(8 * 2 * PI / 8)));
+        ofEndShape();
+        
+    }
     
 }
 
